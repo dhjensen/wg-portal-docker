@@ -1,0 +1,33 @@
+name: WireGuard portal
+
+services:
+  wgportal:
+    image: wgportal/wg-portal:v${WGPORTAL_VERSION}
+    container_name: wg-portal
+    volumes:
+      - /etc/wireguard:/etc/wireguard
+      - wireguard-data:/app/data
+      - wireguard-config:/app/config
+    ports:
+      - "${WGPORTAL_ADDRESS}:8888:8888/tcp"
+      - "${WGPORTAL_ADDRESS}:51820:51820/udp"
+    networks:
+      - nginx-proxy-manager_frontend
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+
+networks:
+  nginx-proxy-manager_frontend:
+    driver: bridge
+    external: true
+
+volumes:
+  wireguard-data:
+  wireguard-config:
