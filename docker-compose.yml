@@ -8,6 +8,7 @@ services:
       - /etc/wireguard:/etc/wireguard
       - wireguard-data:/app/data
       - wireguard-config:/app/config
+      - /etc/timezone:/etc/timezone:ro
     ports:
       - "${WGPORTAL_ADDRESS}:8888:8888/tcp"
       - "${WGPORTAL_ADDRESS}:51820:51820/udp"
@@ -22,6 +23,8 @@ services:
       - NET_ADMIN
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
+    labels:
+      - wud.tag.include=^v\d+\.\d+\.\d+$$
 
 networks:
   nginx-proxy-manager_frontend:

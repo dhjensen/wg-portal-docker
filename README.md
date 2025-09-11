@@ -1,6 +1,6 @@
 # wg-portal-docker
 
-WireGuard portal docker compose configuration
+My [WireGuard portal](https://wgportal.org) docker compose
 
 ## .env example
 
