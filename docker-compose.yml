@@ -10,7 +10,7 @@ services:
       - wireguard-config:/app/config
       - /etc/timezone:/etc/timezone:ro
     ports:
-      - "${WGPORTAL_ADDRESS}:8888:8888/tcp"
+      - "${WGPORTAL_ADDRESS}:8891:8888/tcp"
       - "${WGPORTAL_ADDRESS}:51820:51820/udp"
     networks:
       - nginx-proxy-manager_frontend
