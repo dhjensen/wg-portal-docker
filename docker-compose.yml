@@ -3,16 +3,17 @@ name: WireGuard portal
 services:
   wgportal:
     image: wgportal/wg-portal:v${WGPORTAL_VERSION}
-    container_name: wg-portal
+    container_name: wg
     volumes:
-      - /etc/wireguard:/etc/wireguard
-      - wireguard-data:/app/data
-      - wireguard-config:/app/config
+      - /etc/wireguard:/etc/wireguard:rw
+      - wireguard-data:/app/data:rw
+      - wireguard-config:/app/config:rw
       - /etc/timezone:/etc/timezone:ro
     ports:
       - "${WGPORTAL_ADDRESS}:8891:8888/tcp"
       - "${WGPORTAL_ADDRESS}:51820:51820/udp"
     networks:
+      - backend
       - nginx-proxy-manager_frontend
     restart: unless-stopped
     logging:
@@ -25,8 +26,12 @@ services:
       - net.ipv4.conf.all.src_valid_mark=1
     labels:
       - wud.tag.include=^v\d+\.\d+\.\d+$$
+      - traefik.enable=true
 
 networks:
+  backend:
+    external: true
+    driver: bridge
   nginx-proxy-manager_frontend:
     driver: bridge
     external: true
