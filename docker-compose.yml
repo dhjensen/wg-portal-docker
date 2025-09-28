@@ -27,6 +27,7 @@ services:
     labels:
       - wud.tag.include=^v\d+\.\d+\.\d+$$
       - traefik.enable=true
+      - traefik.http.services.wgportal-wireguardportal.Loadbalancer.server.port=8891
 
 networks:
   backend:
