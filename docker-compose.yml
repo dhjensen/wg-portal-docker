@@ -10,11 +10,10 @@ services:
       - wireguard-config:/app/config:rw
       - /etc/timezone:/etc/timezone:ro
     ports:
-      - "${WGPORTAL_ADDRESS}:8891:8888/tcp"
-      - "${WGPORTAL_ADDRESS}:51820:51820/udp"
+      - "0.0.0.0:8891:8888/tcp"
+      - "0.0.0.0:51820:51820/udp"
     networks:
       - backend
-      - nginx-proxy-manager_frontend
     restart: unless-stopped
     logging:
       options:
@@ -33,9 +32,6 @@ networks:
   backend:
     external: true
     driver: bridge
-  nginx-proxy-manager_frontend:
-    driver: bridge
-    external: true
 
 volumes:
   wireguard-data:
