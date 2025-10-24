@@ -10,8 +10,8 @@ services:
       - wireguard-config:/app/config:rw
       - /etc/timezone:/etc/timezone:ro
     ports:
-      - "0.0.0.0:8891:8888/tcp"
-      - "0.0.0.0:51820:51820/udp"
+      - '0.0.0.0:8891:8888/tcp'
+      - '0.0.0.0:51820:51820/udp'
     networks:
       - backend
     restart: unless-stopped
